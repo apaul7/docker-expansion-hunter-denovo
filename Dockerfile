@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM python:3
 MAINTAINER Alexander Paul <alex.paul@.wustl.edu>
 
 LABEL \
@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
   libbz2-dev \
   liblzma-dev \
   ncurses-dev \
+  pip3 \
   unzip \
   wget \
   zlib1g-dev
@@ -33,4 +34,6 @@ RUN wget https://github.com/Illumina/ExpansionHunterDenovo/archive/${EXPANSION_H
   && /opt/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Release ../source \
   && make
 
-WORKDIR / 
+RUN pip3 install scipy
+
+WORKDIR /
