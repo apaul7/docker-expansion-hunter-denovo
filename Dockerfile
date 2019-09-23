@@ -31,7 +31,8 @@ RUN wget https://github.com/Illumina/ExpansionHunterDenovo/archive/${EXPANSION_H
   && cd ExpansionHunterDenovo/ \
   && mkdir build && cd build \
   && /opt/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Release ../source \
-  && make
+  && make \
+  && ln -s /opt/ExpansionHunterDenovo/build/ExpansionHunterDenovo /usr/bin/ExpansionHunterDenovo
 
 RUN pip3 install scipy
 
