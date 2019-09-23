@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
   libbz2-dev \
   liblzma-dev \
   ncurses-dev \
-  pip3 \
   unzip \
   wget \
   zlib1g-dev
