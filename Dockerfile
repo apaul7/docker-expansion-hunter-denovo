@@ -5,34 +5,18 @@ LABEL \
   description="ExpansionHunterDenvo image for use in Workflows(https://github.com/Illumina/ExpansionHunterDenovo)"
 
 RUN apt-get update && apt-get install -y \
-  cmake \
-  git \
-  g++ \
-  libboost-all-dev \
-  libbz2-dev \
-  liblzma-dev \
-  ncurses-dev \
-  unzip \
-  wget \
-  zlib1g-dev
+  wget
 
 WORKDIR /opt
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.3/cmake-3.15.3-Linux-x86_64.tar.gz -O cmake.tar.gz \
-  && tar -zxvf cmake.tar.gz \
-  && mv cmake-3.15.3-Linux-x86_64 cmake
 
-ENV EXPANSION_HUNTER_INSTALL_DIR=/opt/ExpansionHunterDenovo
 ENV EXPANSION_HUNTER_VERSION=0.8.0
-ENV EXPANSION_HUNTER_COMMIT="361faadab1f9de2208a8cfd5494877226b99c3d7"
 
-RUN wget https://github.com/Illumina/ExpansionHunterDenovo/archive/${EXPANSION_HUNTER_COMMIT}.zip \
-  && unzip ${EXPANSION_HUNTER_COMMIT}.zip \
-  && mv ExpansionHunterDenovo-${EXPANSION_HUNTER_COMMIT} ExpansionHunterDenovo \
-  && cd ExpansionHunterDenovo/ \
-  && mkdir build && cd build \
-  && /opt/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Release ../source \
-  && make \
-  && ln -s /opt/ExpansionHunterDenovo/build/ExpansionHunterDenovo /usr/bin/ExpansionHunterDenovo
+RUN wget https://github.com/Illumina/ExpansionHunterDenovo/releases/download/v${EXPANSION_HUNTER_VERSION}/ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION}-linux_x86_64.tar.gz \
+  && tar -zxvf ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION}-linux_x86_64.tar.gz \
+  && mv ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION}-linux_x86_64 ExpansionHunterDenovo \
+  && mv ExpansionHunterDenovo/bin/ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION} ExpansionHunterDenovo/bin/ExpansionHunterDenovo \
+  && ln -s /opt/ExpansionHunterDenovo/bin/ExpansionHunterDenovo /usr/bin/ \
+  && rm ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION}-linux_x86_64.tar.gz
 
 RUN pip3 install scipy
 
