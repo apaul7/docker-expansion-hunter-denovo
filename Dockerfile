@@ -9,12 +9,11 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt
 
-ENV EXPANSION_HUNTER_VERSION=0.8.0
+ENV EXPANSION_HUNTER_VERSION=0.9.0
 
 RUN wget https://github.com/Illumina/ExpansionHunterDenovo/releases/download/v${EXPANSION_HUNTER_VERSION}/ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION}-linux_x86_64.tar.gz \
   && tar -zxvf ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION}-linux_x86_64.tar.gz \
   && mv ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION}-linux_x86_64 ExpansionHunterDenovo \
-  && mv ExpansionHunterDenovo/bin/ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION} ExpansionHunterDenovo/bin/ExpansionHunterDenovo \
   && ln -s /opt/ExpansionHunterDenovo/bin/ExpansionHunterDenovo /usr/bin/ \
   && rm ExpansionHunterDenovo-v${EXPANSION_HUNTER_VERSION}-linux_x86_64.tar.gz
 
